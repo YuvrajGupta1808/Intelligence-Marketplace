@@ -1,0 +1,5 @@
+interface:
+  display_name: "Verifier Rules"
+  short_description: "Implement deterministic verifiers"
+  default_prompt: "Use $verifier-rules to add deterministic evidence verification with rule coverage."
+

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JobInput",
+  "type": "object",
+  "required": ["goal", "target_urls", "max_budget_usdc"],
+  "properties": {
+    "goal": { "type": "string" },
+    "target_urls": { "type": "array", "items": { "type": "string", "format": "uri" } },
+    "max_budget_usdc": { "type": "number" }
+  }
+}
+

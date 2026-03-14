@@ -1,0 +1,4 @@
+interface:
+  display_name: "Demo Polish"
+  short_description: "Polish the hackathon demo flow"
+  default_prompt: "Use $demo-polish to tighten the demo flow, labels, and seeded scenarios."

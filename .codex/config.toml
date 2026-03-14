@@ -1,0 +1,28 @@
+model = "gpt-5-codex"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[tools]
+web_search = "cached"
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+enabled = true
+
+[mcp_servers.browserDevTools]
+command = "python3"
+args = ["apps/browser-worker/mcp_server.py"]
+enabled = true
+tool_timeout_sec = 120
+startup_timeout_sec = 20
+
+[mcp_servers.repoDocs]
+command = "python3"
+args = ["docs/repo_docs_mcp.py"]
+enabled = true
+tool_timeout_sec = 60
+startup_timeout_sec = 20
+

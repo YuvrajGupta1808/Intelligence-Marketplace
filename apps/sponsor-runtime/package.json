@@ -1,0 +1,26 @@
+{
+  "name": "sponsor-runtime",
+  "version": "1.0.0",
+  "description": "Sponsor-backed runtime for x402 payments and Alkahest settlement",
+  "main": "src/server.mjs",
+  "scripts": {
+    "dev": "node src/server.mjs",
+    "start": "node src/server.mjs"
+  },
+  "keywords": ["x402", "solana", "alkahest", "unbrowse"],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@scure/base": "^2.0.0",
+    "@solana/kit": "^5.5.1",
+    "@x402/core": "^2.6.0",
+    "@x402/express": "^2.6.0",
+    "@x402/fetch": "^2.6.0",
+    "@x402/svm": "^2.6.0",
+    "alkahest-ts": "^0.7.3",
+    "express": "^5.2.1",
+    "unbrowse": "^1.1.5",
+    "viem": "^2.47.2"
+  }
+}
