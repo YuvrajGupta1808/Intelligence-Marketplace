@@ -1,0 +1,10 @@
+# Unbrowse server for Deep Finance Research pipeline (SEC.gov / browser automation)
+FROM node:20-slim
+
+RUN npm install -g unbrowse@latest
+
+EXPOSE 6969
+
+# Start Unbrowse local server; ensure it binds to 0.0.0.0 so the API container can reach it
+# If Unbrowse requires a different start command for headless, update per unbrowse docs
+CMD ["unbrowse", "setup"]

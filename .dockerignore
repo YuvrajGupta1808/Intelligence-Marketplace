@@ -1,0 +1,42 @@
+# Env and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv
+venv
+env
+ENV
+__pycache__
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.egg-info
+.eggs
+dist
+build
+
+# Git and IDE
+.git
+.gitignore
+
+# Output and local data
+output/
+chroma_financial_docs/
+
+# Docs and tests (not needed in API image)
+docs/
+README.md
+AGENTS.md
+tests/
+
+# Streamlit app (not used in API container)
+app.py
+
+# Optional
+node_modules
+deep-agents-ui

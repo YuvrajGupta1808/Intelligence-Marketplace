@@ -1,0 +1,26 @@
+# Production stack: API + Unbrowse for DigitalOcean droplet (or any host)
+# Run: docker compose -f docker-compose.prod.yml up -d --build
+# Set FIREWORKS_API_KEY (required) and optional EXA_API_KEY, UNBROWSE_API_KEY via .env or environment
+
+services:
+  unbrowse:
+    build:
+      context: .
+      dockerfile: Dockerfile.unbrowse
+    ports:
+      - "6969:6969"
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      UNBROWSE_URL: http://unbrowse:6969
+    depends_on:
+      - unbrowse
+    restart: unless-stopped
