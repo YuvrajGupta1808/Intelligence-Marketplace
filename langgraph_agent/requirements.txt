@@ -1,5 +1,5 @@
-# For Streamlit Cloud when app root is langgraph_agent/: core deps only (no solana-agent-kit-py)
--e .
+# Streamlit Cloud runs pip from repo root; install the app package (has pyproject.toml)
+-e ./langgraph_agent
 langgraph>=0.2.0
 langchain-core>=0.3.0
 langchain-openai>=0.2.0
