@@ -1,34 +1,64 @@
-const plannerBase = process.env.NEXT_PUBLIC_PLANNER_API_URL ?? "http://localhost:8001";
+export function explorerUrl(address: string, cluster: string): string {
+  return `https://explorer.solana.com/address/${address}?cluster=${cluster}`;
+}
 
-export async function createJob(goal: string, urls: string[], maxBudget: number) {
-  const response = await fetch(`${plannerBase}/jobs`, {
+export function explorerTxUrl(signature: string, cluster: string): string {
+  return `https://explorer.solana.com/tx/${signature}?cluster=${cluster}`;
+}
+
+export type PaymentRequiredResponse = {
+  error: string;
+  message: string;
+  quote_lamports: number;
+  quote_sol: number;
+  receiver: string;
+  network: string;
+  how_to_pay: string;
+  plan?: string[];
+};
+
+export type RunSuccessResponse = {
+  final_answer: string;
+  plan: string[];
+  tool_call_log: Array<{ tool?: string; amount_lamports?: number; tx?: string }>;
+};
+
+export type RunResult =
+  | { kind: "payment_required"; data: PaymentRequiredResponse }
+  | { kind: "success"; data: RunSuccessResponse }
+  | { kind: "error"; status: number; message: string };
+
+export async function runAgent(
+  query: string,
+  options?: { paymentSignature?: string; quoteLamports?: number }
+): Promise<RunResult> {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
+  if (options?.paymentSignature) {
+    headers["Payment-Signature"] = options.paymentSignature;
+    if (options.quoteLamports != null) {
+      headers["X-Quote-Lamports"] = String(options.quoteLamports);
+    }
+  }
+
+  const res = await fetch("/api/run", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ goal, target_urls: urls, max_budget_usdc: maxBudget }),
-    cache: "no-store",
+    headers,
+    body: JSON.stringify({ query }),
   });
-  if (!response.ok) {
-    throw new Error("Failed to create job");
-  }
-  return response.json();
-}
+  const data = await res.json().catch(() => ({}));
 
-export async function runJob(jobId: string) {
-  const response = await fetch(`${plannerBase}/jobs/${jobId}/run`, {
-    method: "POST",
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error("Failed to run job");
+  if (res.status === 402) {
+    return { kind: "payment_required", data: data as PaymentRequiredResponse };
   }
-  return response.json();
-}
-
-export async function getJob(jobId: string) {
-  const response = await fetch(`${plannerBase}/jobs/${jobId}`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error("Failed to fetch job");
+  if (res.ok) {
+    return { kind: "success", data: data as RunSuccessResponse };
   }
-  return response.json();
+  return {
+    kind: "error",
+    status: res.status,
+    message: (data.detail ?? data.message ?? res.statusText) as string,
+  };
 }
-

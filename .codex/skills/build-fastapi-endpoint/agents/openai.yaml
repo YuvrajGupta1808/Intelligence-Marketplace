@@ -1,5 +1,0 @@
-interface:
-  display_name: "Build FastAPI Endpoint"
-  short_description: "Build FastAPI routes safely"
-  default_prompt: "Use $build-fastapi-endpoint to add a FastAPI route with schemas and tests."
-

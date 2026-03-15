@@ -8,3 +8,5 @@ duckduckgo-search>=6.0.0
 python-dotenv>=1.0.0
 streamlit>=1.28.0
 solana>=0.34.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0

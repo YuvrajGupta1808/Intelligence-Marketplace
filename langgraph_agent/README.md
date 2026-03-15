@@ -221,7 +221,17 @@ npm install && npm run register
 python -m langgraph_agent.metaplex register
 ```
 
-See [metaplex-scripts/README.md](../metaplex-scripts/README.md) for details. Docs: [Metaplex Agents](https://developers.metaplex.com/agents), [8004 on Solana](https://quantulabs.github.io/8004-solana/).
+See [metaplex-scripts/README.md](../metaplex-scripts/README.md) for details. **For judges:** agent is already registered; see [METAPLEX_AGENT_REGISTRY.md](../METAPLEX_AGENT_REGISTRY.md) for verification links and on-chain details. To verify from the app: open the live app, expand **Metaplex Agent Registry — Verify identity**, and use the Explorer link. To verify from CLI: `cd metaplex-scripts && AGENT_ASSET=<asset> npm run verify`. Docs: [Metaplex Developer Hub](https://www.metaplex.com/docs), [Metaplex Agents](https://developers.metaplex.com/agents), [8004 on Solana](https://quantulabs.github.io/8004-solana/).
+
+## x402 API (agent-to-agent commerce)
+
+An HTTP API returns **402 Payment Required** when unpaid and runs the agent when payment is verified. See [METAPLEX_AGENT_REGISTRY.md](../METAPLEX_AGENT_REGISTRY.md) for the full 402 flow. Run the API:
+
+```bash
+cd langgraph_agent && pip install -e . && uvicorn x402_api:app --host 0.0.0.0 --port 8000
+```
+
+Then `POST /run` with `{"query": "..."}`; on 402, pay the shown SOL to the receiver, then retry with header `Payment-Signature: <tx_sig>` and optional `X-Quote-Lamports: <from_402>`.
 
 ## Requirements
 

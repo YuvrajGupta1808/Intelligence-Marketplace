@@ -8,10 +8,14 @@ import streamlit as st
 try:
     from dotenv import load_dotenv
     load_dotenv()
-    for d in (Path(__file__).resolve().parent, Path(__file__).resolve().parents[1]):
+    root = Path(__file__).resolve().parents[1]
+    for d in (Path(__file__).resolve().parent, root):
         if (d / ".env").exists():
             load_dotenv(d / ".env")
-            break
+    # Also load apps/web/.env so NEXT_PUBLIC_* (agent asset, wallet, network, genesis URL) are visible in UI
+    web_env = root / "apps" / "web" / ".env"
+    if web_env.exists():
+        load_dotenv(web_env)
 except ImportError:
     pass
 
@@ -22,6 +26,31 @@ from langgraph_agent.core.pricing import lamports_to_sol
 st.set_page_config(page_title="Plan & Execute Agent", page_icon="🔍", layout="centered")
 st.title("🔍 Plan & Execute Agent")
 st.caption("Enter a goal; agent returns a plan and quote. Send the payment — the run continues automatically when payment is detected.")
+
+# Phase 1: Read agent data — verify section for judges/users (NEXT_PUBLIC_* from apps/web/.env)
+with st.expander("**Metaplex Agent Registry — Verify identity**", expanded=True):
+    agent_asset = os.getenv("NEXT_PUBLIC_AGENT_ASSET") or os.getenv("AGENT_ASSET", "GNdop5oApBkRfH5YDZPDkVKBudENNwaXLmykEg6U5Gmm")
+    operational_wallet = (
+        os.getenv("NEXT_PUBLIC_OPERATIONAL_WALLET")
+        or os.getenv("SOLANA_PAY_TO")
+        or os.getenv("X402_PAY_TO")
+        or "6rmVGBrJrvQaJnBFKBaFSKGZv4DnTHEoe1H1TVa6zaYU"
+    )
+    cluster = (
+        os.getenv("NEXT_PUBLIC_NETWORK")
+        or ("devnet" if "devnet" in (os.getenv("SOLANA_RPC_URL") or "").lower() else "mainnet")
+    )
+    genesis_launch_url = os.getenv(
+        "NEXT_PUBLIC_GENESIS_LAUNCH_URL",
+        "https://www.metaplex.com/token/UKBsjo8vkazhyhyrjJUr2SBrCzvybKQd73k9fJaPLEX?network=solana-devnet",
+    )
+    explorer_url = f"https://explorer.solana.com/address/{agent_asset}?cluster={cluster}"
+    st.markdown("This agent is registered on the 8004 Agent Registry (Metaplex Core on Solana).")
+    st.markdown(f"**Agent asset:** `{agent_asset}`")
+    st.markdown(f"**Operational wallet:** `{operational_wallet}`")
+    st.markdown(f"**Network:** {cluster}")
+    st.markdown(f"**Genesis RAA launch:** [Open launch page]({genesis_launch_url})")
+    st.markdown(f"[View on Solana Explorer]({explorer_url})")
 
 query = st.text_area(
     "Your goal or question",

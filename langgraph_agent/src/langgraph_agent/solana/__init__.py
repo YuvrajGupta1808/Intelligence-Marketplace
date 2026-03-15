@@ -5,6 +5,7 @@ from langgraph_agent.solana.payments import (
     check_payment_received,
     receiver_balance_lamports,
     send_lamports_to_tool_provider,
+    verify_payment_by_signature,
 )
 
 __all__ = [
@@ -13,4 +14,5 @@ __all__ = [
     "check_payment_received",
     "receiver_balance_lamports",
     "send_lamports_to_tool_provider",
+    "verify_payment_by_signature",
 ]

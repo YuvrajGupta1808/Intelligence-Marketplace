@@ -1,0 +1,24 @@
+{
+  "name": "metaplex-genesis",
+  "version": "1.0.0",
+  "description": "Metaplex Genesis token launch for Research Agent",
+  "type": "module",
+  "scripts": {
+    "launch": "tsx launch.ts",
+    "crank": "tsx crank.ts",
+    "claim": "tsx claim.ts",
+    "revoke": "tsx revoke.ts"
+  },
+  "dependencies": {
+    "@metaplex-foundation/genesis": "^0.24.0",
+    "@metaplex-foundation/umi": "^1.4.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.0.0",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

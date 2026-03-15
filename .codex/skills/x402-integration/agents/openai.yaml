@@ -1,5 +1,0 @@
-interface:
-  display_name: "X402 Integration"
-  short_description: "Build x402 payment flows safely"
-  default_prompt: "Use $x402-integration to implement or test x402 challenge and payment handling."
-

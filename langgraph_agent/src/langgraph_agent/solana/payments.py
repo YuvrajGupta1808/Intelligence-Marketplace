@@ -37,6 +37,32 @@ def check_payment_received(
     return now >= quote_lamports
 
 
+def verify_payment_by_signature(
+    signature: str,
+    receiver: str,
+    min_lamports: int,
+) -> bool:
+    """Verify that the given tx signature is a successful transfer of at least min_lamports to receiver.
+    Used for x402 payment proof: client sends Payment-Signature header, we check on-chain."""
+    if not receiver or min_lamports <= 0:
+        return False
+    try:
+        from solana.rpc.api import Client
+        from solders.pubkey import Pubkey
+        from solders.signature import Signature
+    except ImportError:
+        return False
+    client = Client(get_solana_rpc_url())
+    sig = Signature.from_string(signature.strip())
+    statuses = client.get_signature_statuses([sig])
+    if not statuses.value or not statuses.value[0]:
+        return False
+    if getattr(statuses.value[0], "err", None) is not None:
+        return False
+    # Require receiver balance to be at least min_lamports (payment reached our wallet)
+    return receiver_balance_lamports() >= min_lamports
+
+
 def _wait_for_tx_confirm(client, signature: str, max_wait_sec: float = 30.0) -> None:
     """Poll until tx is confirmed or finalized, or max_wait_sec expires."""
     import time

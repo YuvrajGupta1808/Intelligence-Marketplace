@@ -20,6 +20,7 @@ class PlanExecuteState(TypedDict):
     payment_receiver: NotRequired[str]
     payment_status: NotRequired[str]
     payment_tx: NotRequired[str]
+    payment_signature: NotRequired[str]  # x402: when set, wait_payment verifies this tx instead of polling
     receiver_balance_at_quote_lamports: NotRequired[int]
     budget_remaining_lamports: NotRequired[int]
     tool_call_log: NotRequired[list[dict[str, Any]]]
