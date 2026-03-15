@@ -1,0 +1,20 @@
+{
+  "name": "metaplex-scripts",
+  "version": "1.0.0",
+  "description": "Metaplex Agent Registry scripts for LangGraph agent registration and run",
+  "type": "module",
+  "scripts": {
+    "register": "tsx register-agent.ts",
+    "run-agent": "tsx verify-delegation.ts",
+    "verify": "tsx verify-delegation.ts"
+  },
+  "dependencies": {
+    "8004-solana": "^0.8.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

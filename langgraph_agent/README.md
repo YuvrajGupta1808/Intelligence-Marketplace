@@ -206,6 +206,23 @@ When `SOLANA_PAY_TO` (or `X402_PAY_TO`) is set:
 
 If `SOLANA_PAY_TO` is not set, the graph runs without payment (no gate).
 
+## Metaplex Agent Registry (optional)
+
+To register this agent on the **8004 Agent Registry** (Metaplex Core NFTs on Solana) for on-chain identity and discoverability:
+
+```bash
+# Option A: From metaplex-scripts
+cd ../metaplex-scripts
+cp .env.example .env
+# Add PINATA_JWT (from pinata.cloud) and ensure SOLANA_PRIVATE_KEY is set
+npm install && npm run register
+
+# Option B: Python wrapper (requires pip install -e . in langgraph_agent)
+python -m langgraph_agent.metaplex register
+```
+
+See [metaplex-scripts/README.md](../metaplex-scripts/README.md) for details. Docs: [Metaplex Agents](https://developers.metaplex.com/agents), [8004 on Solana](https://quantulabs.github.io/8004-solana/).
+
 ## Requirements
 
 - Python 3.10+

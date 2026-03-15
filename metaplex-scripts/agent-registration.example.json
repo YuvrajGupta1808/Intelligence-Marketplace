@@ -1,0 +1,17 @@
+{
+  "name": "Research Agent",
+  "description": "Plan-and-execute agent that answers research questions using web search. Payment-gated on Solana devnet. Pay SOL to run; each step triggers on-chain tool payouts.",
+  "services": [
+    {
+      "type": "OASF",
+      "value": "http://localhost:8501"
+    }
+  ],
+  "skills": [
+    "natural_language_processing/natural_language_generation/text_completion"
+  ],
+  "domains": [
+    "technology/software_engineering/software_engineering"
+  ],
+  "active": true
+}
