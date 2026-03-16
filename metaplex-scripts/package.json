@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "register": "tsx register-agent.ts",
-    "run-agent": "tsx verify-delegation.ts",
+    "run-agent": "tsx run-agent.ts",
     "verify": "tsx verify-delegation.ts"
   },
   "dependencies": {

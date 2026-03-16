@@ -48,7 +48,13 @@ export AGENT_ASSET=GNdop5oApBkRfH5YDZPDkVKBudENNwaXLmykEg6U5Gmm
 npm run verify
 ```
 
-Expected: script reads agent data (e.g. via 8004 / Metaplex Core) and prints that the agent was found, with owner and operational wallet.
+Or **run agent** (verify + print how to start the backend and use the app):
+
+```bash
+AGENT_ASSET=GNdop5oApBkRfH5YDZPDkVKBudENNwaXLmykEg6U5Gmm npm run run-agent
+```
+
+Expected: script reads agent data (e.g. via 8004 / Metaplex Core) and prints that the agent was found, with owner and operational wallet. With `run-agent`, it also prints steps to start the chat API and open the Deep Research or Streamlit app.
 
 **Endpoints:** No HTTP API for “read agent” in this repo — verification is via the Streamlit UI and the `metaplex-scripts` verify script (which talks to Solana/Metaplex under the hood).
 

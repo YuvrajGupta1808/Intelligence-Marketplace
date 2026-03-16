@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import { runAgent, explorerTxUrl } from "@/lib/api";
 import type { RunResult } from "@/lib/api";
 
@@ -141,8 +142,8 @@ export default function RunAgent() {
             <h3 className="mb-2 text-sm font-medium text-gray-400">
               Final answer
             </h3>
-            <div className="rounded-lg border border-border bg-surface p-4 text-gray-200 whitespace-pre-wrap">
-              {success.final_answer || "—"}
+            <div className="rounded-lg border border-border bg-surface p-4 text-gray-200 [&_h1]:text-lg [&_h1]:font-bold [&_h1]:mt-4 [&_h1]:mb-2 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:mt-3 [&_h2]:mb-2 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-2 [&_h3]:mb-1 [&_p]:mb-2 [&_ul]:list-disc [&_ul]:list-inside [&_ul]:mb-2 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:mb-2 [&_ol]:space-y-1 [&_strong]:font-semibold">
+              <ReactMarkdown>{success.final_answer || "—"}</ReactMarkdown>
             </div>
           </div>
           {success.tool_call_log.length > 0 && (

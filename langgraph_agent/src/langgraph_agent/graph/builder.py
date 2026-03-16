@@ -45,6 +45,7 @@ def create_plan_execute_graph(model: str | None = None):
     """Build and compile the plan-and-execute graph with quote/payment gating."""
     llm = _create_llm(model)
     search_tool = get_search_tool()
+    # Deep research tool is currently disabled; only bind web_search.
     llm_with_tools = llm.bind_tools([search_tool])
     receiver = get_agent_payment_receiver() or ""
 
@@ -59,6 +60,7 @@ def create_plan_execute_graph(model: str | None = None):
             state,
             llm_with_tools=llm_with_tools,
             search_tool=search_tool,
+            deep_research_tool=None,
         )
 
     def synthesize(state: PlanExecuteState) -> dict:

@@ -54,7 +54,7 @@ AGENT_ASSET=<agent_asset_pubkey> npm run verify
 
 - `npm run register` — Register agent (create collection, upload metadata, register, set wallet)
 - `npm run verify` — Verify agent is registered (requires `AGENT_ASSET`)
-- `npm run run-agent` — Alias for verify (8004 uses operational wallet; no separate delegation step)
+- `npm run run-agent` — Verify agent, then print how to run it (start chat_api or Streamlit and use the app)
 
 ## Integration with LangGraph Agent
 
@@ -63,4 +63,4 @@ The agent’s **operational wallet** (set by `setAgentWallet`) is the same walle
 - Receiving user payments (`SOLANA_PAY_TO`)
 - Signing tool payouts (`SOLANA_PRIVATE_KEY`)
 
-So the LangGraph runtime is already “running” the agent on-chain. No extra delegation step is needed for 8004.
+So the LangGraph runtime is already “running” the agent on-chain. No extra delegation step is needed for 8004. To run the agent: use `npm run run-agent` for steps, then start the chat API and open the Deep Research or Streamlit app. For Metaplex executive delegation, see `delegate-execution-metaplex.example.ts` when `@metaplex-foundation/mpl-agent-registry` is installable.

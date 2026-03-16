@@ -158,7 +158,7 @@ Or use a virtual environment so the correct Python is used:
 ```bash
 cd langgraph_agent
 python -m venv .venv
-source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+source .venv/bin/activate
 pip install -e .
 python -m langgraph_agent.run "What are the main causes of climate change and one recent EU policy about it?"
 ```
@@ -239,6 +239,7 @@ Then `POST /run` with `{"query": "..."}`; on 402, pay the shown SOL to the recei
 - `OPENAI_API_KEY` in the environment or in a `.env` file (project or repo root)
 - No API key needed for web search (DuckDuckGo)
 - For payment: `solana` (PyPI) for balance checks; optional `solana-agent-kit-py` for Solana tools: `pip install langgraph-agent[solana-kit]`
+- Optional: to enable the Deep Finance Research stock-analysis tool, run the `deep-research` API locally (e.g. `uv run uvicorn deep_research.api:app --reload --port 8010`) and set `DEEP_RESEARCH_URL` if you use a non-default URL.
 
 ## Optional: use as a library
 
